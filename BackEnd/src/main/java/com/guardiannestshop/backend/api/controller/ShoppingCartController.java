@@ -89,4 +89,16 @@ public class ShoppingCartController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @Transactional
+    @DeleteMapping("/delete-shopping-cart-by-userid/{userid}")
+    public ResponseEntity<String> deleteByUserid(@PathVariable  String  userid) {
+        try {
+            shoppingCartService.deleteCartByUserid(userid);
+            return new ResponseEntity<>("Xóa  thành công", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

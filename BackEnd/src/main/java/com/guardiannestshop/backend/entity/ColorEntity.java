@@ -11,7 +11,8 @@ public class ColorEntity {
     private Long colorid;
     @Column(name = "colorname",columnDefinition = "NVARCHAR(MAX)")
     private String colorname;
-
+    @Column(name = "colorCore")
+    private String colorCore;
     public Long getColorid() {
         return colorid;
     }
@@ -26,5 +27,13 @@ public class ColorEntity {
 
     public void setColorname(String colorname) {
         this.colorname = colorname;
+    }
+
+    public String getColorCore() {
+        return colorCore;
+    }
+
+    public void setColorCore(String colorCore) {
+        this.colorCore = colorCore;
     }
 }

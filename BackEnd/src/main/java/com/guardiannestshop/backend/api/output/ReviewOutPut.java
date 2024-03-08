@@ -1,14 +1,15 @@
 package com.guardiannestshop.backend.api.output;
 
-import com.guardiannestshop.backend.dto.*;
+import com.guardiannestshop.backend.dto.ProductsDTO;
+import com.guardiannestshop.backend.dto.ReviewDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoveListoutput {
+public class ReviewOutPut {
     private int page;
     private int totalPage;
-    private List<LoveListDTO> listResult = new ArrayList<>();
+    private List<ReviewDTO> listResult = new ArrayList<>();
 
     public int getPage() {
         return page;
@@ -26,11 +27,11 @@ public class LoveListoutput {
         this.totalPage = totalPage;
     }
 
-    public List<LoveListDTO> getListResult() {
+    public List<ReviewDTO> getListResult() {
         return listResult;
     }
 
-    public void setListResult(List<LoveListDTO> listResult) {
+    public void setListResult(List<ReviewDTO> listResult) {
         this.listResult = listResult;
     }
 }

@@ -134,11 +134,117 @@ public class OrderIMPL implements OrderService {
     @Override
     public List<OrderOTD> getByUserid(String userid, Pageable pageable) {
         List<OrderOTD> results = new ArrayList<>();
-        List<OrderEntity> orderEntities = orderRepository.findByUserid(userid,pageable);
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
         for (OrderEntity item: orderEntities
         ) {
             OrderOTD DTO = orderMapper.maptoDTO(item);
             results.add(DTO);
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByStatusUser(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrderstatus().equals("Đang chuẩn bị hàng") && item.getOrdercancel().equals("Xác Nhận") ){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByStatusUser2(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrderstatus().equals("Đang giao hàng") && item.getOrdercancel().equals("Xác Nhận") ){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByStatusUser3(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrderstatus().equals("Đã giao ") && item.getOrdercancel().equals("Xác Nhận") && item.getOrderpay().equals("Đã thanh toán") ){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByOrderPayUser(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrderpay().equals("Đã thanh toán") && item.getOrdercancel().equals("Xác Nhận") ){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByOrderPayUser2(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrderpay().equals("Chưa thanh toán") && item.getOrdercancel().equals("Xác Nhận") ){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByOrdercancelUser(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrdercancel().equals("Xác Nhận")){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<OrderOTD> getByOrdercancelUser2(String userid, Pageable pageable) {
+        List<OrderOTD> results = new ArrayList<>();
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<OrderEntity> orderEntities = orderRepository.findByUserid(user,pageable);
+        for (OrderEntity item: orderEntities
+        ) {
+            if (item.getOrdercancel().equals("Đã hủy")){
+                OrderOTD DTO = orderMapper.maptoDTO(item);
+                results.add(DTO);
+            }
         }
         return results;
     }

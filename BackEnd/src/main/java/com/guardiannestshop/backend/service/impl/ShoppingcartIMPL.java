@@ -107,6 +107,18 @@ public class ShoppingcartIMPL implements ShoppingCartService {
     }
 
     @Override
+    public void deleteCartByUserid(String userid) {
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+       List<ShoppingCartEntity> shoppingCartEntities = shoppingCartRepository.findByUserid(user);
+        for (ShoppingCartEntity item:shoppingCartEntities
+             ) {
+            if(item.getStatus() == true){
+                shoppingCartRepository.deleteByCartid(item.getCartid());
+            }
+        }
+    }
+
+    @Override
     public void deleteByCartid(Long cartid) {
         shoppingCartRepository.deleteByCartid(cartid);
     }

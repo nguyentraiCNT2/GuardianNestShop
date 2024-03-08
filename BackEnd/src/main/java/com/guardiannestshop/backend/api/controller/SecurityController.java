@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -81,7 +82,7 @@ public class SecurityController {
             securityService.signup(userDTO);
             Date date  = new Date();
             long expirationMillis = 3600000;
-            String mainToken = TokenUtil.generateToken(userDTO.getUsername(), expirationMillis);
+            String mainToken = TokenUtil.generateToken(userDTO.getUserid(), expirationMillis);
             Map<String, Object> response = new HashMap<>();
             Cookie cookie = new Cookie("token", mainToken);
             cookie.setHttpOnly(true);
@@ -111,4 +112,59 @@ public class SecurityController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/admin/user-by-status/{status}")
+    public ResponseEntity<?> getByStatus(@PathVariable Boolean status) {
+        try {
+            List<UserDTO> userDTO = securityService.getByStatus(status);
+
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>((List<UserDTO>) null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/admin/check-core/{userid}")
+    public ResponseEntity<?> getByCheckcore(@PathVariable String userid,@RequestParam("Mkc2") String Mkc2) {
+        try {
+            UserDTO userDTO = securityService.getByMkc2(userid,Mkc2);
+
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>((List<UserDTO>) null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/admin/resend-email/{userid}")
+    public ResponseEntity<?> getByReSendEmail(@PathVariable String userid,@RequestParam("Mkc2") String Mkc2) {
+        try {
+            UserDTO userDTO = securityService.reSendEmail(userid,Mkc2);
+
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>((List<UserDTO>) null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PostMapping("/for-got-password")
+    public ResponseEntity<?> forGotPassword(@RequestParam String username, @RequestParam String email) {
+        try {
+
+            UserDTO userDTO = securityService.forgotPassword(username, email);
+            Date date  = new Date();
+            long expirationMillis = 3600000;
+            String mainToken = TokenUtil.generateToken(userDTO.getUserid(), expirationMillis);
+            Map<String, Object> response = new HashMap<>();
+            Cookie cookie = new Cookie("token", mainToken);
+            String role = "User";
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(3600000);
+            cookie.setPath("/");
+            response.put("token",mainToken);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

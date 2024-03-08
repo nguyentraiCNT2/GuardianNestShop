@@ -47,10 +47,6 @@ public class Applicaltionconfig {
     public OrderdetailsMapper orderdetailsMapper(ModelMapper modelMapper){
         return new OrderdetailsMapper(modelMapper );
     }
-    @Bean
-    public LoveListMapper loveListMapper(ModelMapper modelMapper){
-        return new LoveListMapper(modelMapper );
-    }
 
     @Bean
     public CustomersMapper customersMapper(ModelMapper modelMapper){
@@ -71,14 +67,5 @@ public class Applicaltionconfig {
     @Bean
     public ImportdetailsMapper importdetailsMapper(ModelMapper modelMapper){
         return new ImportdetailsMapper(modelMapper );
-    }
-
-    @Bean
-    public NewsMapper newsMapper(ModelMapper modelMapper){
-        return new NewsMapper(modelMapper );
-    }
-    @Bean
-    public BlackListMapper blackListMapper(ModelMapper modelMapper){
-        return new BlackListMapper(modelMapper );
     }
 }

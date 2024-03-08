@@ -11,7 +11,7 @@ public class ShipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shipid")
     private Long shipid;
-    @Column(name = "shipname")
+    @Column(name = "shipname",columnDefinition = "NVARCHAR(MAX)")
     private String shipname;
     @Column(name = "shipprice")
     private BigDecimal shipprice;

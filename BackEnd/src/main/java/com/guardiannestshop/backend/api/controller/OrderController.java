@@ -169,4 +169,110 @@ public class OrderController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/oder/userid/list/{userid}")
+    public OrderRequestOUTPUT getByUserid(@PathVariable String userid, @RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        OrderRequestOUTPUT result = new OrderRequestOUTPUT();
+        List<OrderRequestDTO> orderRequestDTO = new ArrayList<>();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        List<OrderOTD> orderOTD = orderService.getByUserid(userid,pageable);
+        for (OrderOTD item: orderOTD
+        ) {
+            OrderRequestDTO requestDTO = new OrderRequestDTO();
+            List<OrderdetailsDTO> orderdetailsDTO = orderdetailsService.getByOrderid(item.getOrderid(),pageable);
+            requestDTO.setOrder(item);
+            requestDTO.setOrderDetailsList(orderdetailsDTO);
+            orderRequestDTO.add(requestDTO);
+        }
+
+        result.setListResult(orderRequestDTO);
+        result.setTotalPage((int) Math.ceil((double) (orderService.totalItem()) / limit));
+        model.addAttribute("Orderdetailsoutput", result);
+        return result;
+    }
+    @GetMapping("/oder/userid/list/-status1/{userid}")
+    public OrderRequestOUTPUT getByUseridStatus1(@PathVariable String userid, @RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        OrderRequestOUTPUT result = new OrderRequestOUTPUT();
+        List<OrderRequestDTO> orderRequestDTO = new ArrayList<>();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        List<OrderOTD> orderOTD = orderService.getByStatusUser(userid,pageable);
+        for (OrderOTD item: orderOTD
+        ) {
+            OrderRequestDTO requestDTO = new OrderRequestDTO();
+            List<OrderdetailsDTO> orderdetailsDTO = orderdetailsService.getByOrderid(item.getOrderid(),pageable);
+            requestDTO.setOrder(item);
+            requestDTO.setOrderDetailsList(orderdetailsDTO);
+            orderRequestDTO.add(requestDTO);
+        }
+
+        result.setListResult(orderRequestDTO);
+        result.setTotalPage((int) Math.ceil((double) (orderService.totalItem()) / limit));
+        model.addAttribute("Orderdetailsoutput", result);
+        return result;
+    }
+    @GetMapping("/oder/userid/list/-status2/{userid}")
+    public OrderRequestOUTPUT getByUseridStatus2(@PathVariable String userid, @RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        OrderRequestOUTPUT result = new OrderRequestOUTPUT();
+        List<OrderRequestDTO> orderRequestDTO = new ArrayList<>();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        List<OrderOTD> orderOTD = orderService.getByStatusUser2(userid,pageable);
+        for (OrderOTD item: orderOTD
+        ) {
+            OrderRequestDTO requestDTO = new OrderRequestDTO();
+            List<OrderdetailsDTO> orderdetailsDTO = orderdetailsService.getByOrderid(item.getOrderid(),pageable);
+            requestDTO.setOrder(item);
+            requestDTO.setOrderDetailsList(orderdetailsDTO);
+            orderRequestDTO.add(requestDTO);
+        }
+
+        result.setListResult(orderRequestDTO);
+        result.setTotalPage((int) Math.ceil((double) (orderService.totalItem()) / limit));
+        model.addAttribute("Orderdetailsoutput", result);
+        return result;
+    }
+    @GetMapping("/oder/userid/list/-status3/{userid}")
+    public OrderRequestOUTPUT getByUseridStatus3(@PathVariable String userid, @RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        OrderRequestOUTPUT result = new OrderRequestOUTPUT();
+        List<OrderRequestDTO> orderRequestDTO = new ArrayList<>();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        List<OrderOTD> orderOTD = orderService.getByStatusUser3(userid,pageable);
+        for (OrderOTD item: orderOTD
+        ) {
+            OrderRequestDTO requestDTO = new OrderRequestDTO();
+            List<OrderdetailsDTO> orderdetailsDTO = orderdetailsService.getByOrderid(item.getOrderid(),pageable);
+            requestDTO.setOrder(item);
+            requestDTO.setOrderDetailsList(orderdetailsDTO);
+            orderRequestDTO.add(requestDTO);
+        }
+
+        result.setListResult(orderRequestDTO);
+        result.setTotalPage((int) Math.ceil((double) (orderService.totalItem()) / limit));
+        model.addAttribute("Orderdetailsoutput", result);
+        return result;
+    }
+    @GetMapping("/oder/userid/list/cancel/{userid}")
+    public OrderRequestOUTPUT getByUseridCancel(@PathVariable String userid, @RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        OrderRequestOUTPUT result = new OrderRequestOUTPUT();
+        List<OrderRequestDTO> orderRequestDTO = new ArrayList<>();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        List<OrderOTD> orderOTD = orderService.getByOrdercancelUser2(userid,pageable);
+        for (OrderOTD item: orderOTD
+        ) {
+            OrderRequestDTO requestDTO = new OrderRequestDTO();
+            List<OrderdetailsDTO> orderdetailsDTO = orderdetailsService.getByOrderid(item.getOrderid(),pageable);
+            requestDTO.setOrder(item);
+            requestDTO.setOrderDetailsList(orderdetailsDTO);
+            orderRequestDTO.add(requestDTO);
+        }
+
+        result.setListResult(orderRequestDTO);
+        result.setTotalPage((int) Math.ceil((double) (orderService.totalItem()) / limit));
+        model.addAttribute("Orderdetailsoutput", result);
+        return result;
+    }
 }

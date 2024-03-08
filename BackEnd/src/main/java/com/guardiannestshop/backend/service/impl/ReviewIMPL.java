@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -64,7 +66,8 @@ public class ReviewIMPL implements ReviewService {
     @Override
     public List<ReviewDTO> getByUserid(String userid, Pageable pageable) {
         List<ReviewDTO> results = new ArrayList<>();
-        List<ReviewEntity> reviewEntities = reviewRepository.findByUserid(userid,pageable);
+        UserEntity user = userRepository.findByUserid(userid).orElse(null);
+        List<ReviewEntity> reviewEntities = reviewRepository.findByUserid(user,pageable);
         for (ReviewEntity item: reviewEntities
         ) {
             ReviewDTO DTO = reveiwMapper.maptoDTO(item);
@@ -76,7 +79,9 @@ public class ReviewIMPL implements ReviewService {
     @Override
     public List<ReviewDTO> getByProductsid(Long productsid, Pageable pageable) {
         List<ReviewDTO> results = new ArrayList<>();
-        List<ReviewEntity> reviewEntities = reviewRepository.findByProductsid(productsid,pageable);
+        ProductsEntity products = productsRepository.findByProductsid(productsid).orElse(null);
+        List<ReviewEntity> reviewEntities = reviewRepository.findByProductsid(products,pageable);
+        Collections.sort(reviewEntities, Comparator.comparing(ReviewEntity::getReviewid).reversed());
         for (ReviewEntity item: reviewEntities
         ) {
             ReviewDTO DTO = reveiwMapper.maptoDTO(item);

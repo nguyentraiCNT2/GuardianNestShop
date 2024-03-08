@@ -17,12 +17,14 @@ public class ColorMappper {
         ColorDTO dto = new ColorDTO();
         dto.setColorid(entity.getColorid());
         dto.setColorname(entity.getColorname());
+        dto.setColorCore(entity.getColorCore());
         return dto;
     }
     public ColorEntity maptoEntity (ColorDTO dto){
         ColorEntity entity = new ColorEntity();
         entity.setColorid(dto.getColorid());
         entity.setColorname(dto.getColorname());
+        entity.setColorCore(dto.getColorCore());
         return entity;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -43,6 +44,26 @@ public class ProductsController {
         model.addAttribute("userAccountOutput", result);
         return result;
     }
+    @GetMapping("/admin/product-by-categoryid-list-desc/{categoryid}")
+    public ProductOutput getByCategoryidDesc(@PathVariable Long categoryid,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.getByCategoryidByProductpriceDesc(categoryid,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+    }
+    @GetMapping("/admin/product-by-categoryid-list-asc/{categoryid}")
+    public ProductOutput getByCategoryidAsc(@PathVariable Long categoryid,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.getByCategoryidByProductpriceAsc(categoryid,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+    }
     @GetMapping("/admin/product-by-category-level2-id-list/{categoryLV2id}")
     public ProductOutput getByCategoryLV2id(@PathVariable Long categoryLV2id,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
         ProductOutput result = new ProductOutput();
@@ -53,16 +74,7 @@ public class ProductsController {
         model.addAttribute("userAccountOutput", result);
         return result;
     }
-    @GetMapping("/admin/product-by-love-list-id-list/{loveListid}")
-    public ProductOutput getByLoveListid(@PathVariable Long loveListid,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
-        ProductOutput result = new ProductOutput();
-        result.setPage(page);
-        Pageable pageable =  PageRequest.of(page - 1, limit);
-        result.setListResult(productsService.getByLoveListid(loveListid,pageable));
-        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
-        model.addAttribute("userAccountOutput", result);
-        return result;
-    }
+
     @GetMapping("/admin/product-by-color-id-list/{colorid}")
     public ProductOutput getByColorid(@PathVariable Long colorid,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
         ProductOutput result = new ProductOutput();
@@ -181,5 +193,65 @@ public class ProductsController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/filter/{categoryid}")
+    public ProductOutput filterProducts(
+            @PathVariable Long categoryid,
+            @RequestParam(name = "color", required = false) Long color,
+            @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam("page") int page,
+            @RequestParam("limit") int limit,
+            Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.filterProducts(categoryid,color, minPrice, maxPrice,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+
+    }
+
+
+    @GetMapping("/admin/product-by-categorylvid-list-desc/{categoryLV2id}")
+    public ProductOutput getByCategorylvidDesc(@PathVariable Long categoryLV2id,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.getByCategoryLV2idByProductpriceDesc(categoryLV2id,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+    }
+    @GetMapping("/admin/product-by-categorylvid-list-asc/{categoryLV2id}")
+    public ProductOutput getByCategoryLVidAsc(@PathVariable Long categoryLV2id,@RequestParam("page") int page, @RequestParam("limit") int limit, Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.getByCategoryLV2idByProductpriceAsc(categoryLV2id,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+    }
+
+    @GetMapping("/filter/categoryLV2id/{categoryLV2id}")
+    public ProductOutput filterProductsLV2(
+            @PathVariable Long categoryLV2id,
+            @RequestParam(name = "color", required = false) Long color,
+            @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam("page") int page,
+            @RequestParam("limit") int limit,
+            Model model) {
+        ProductOutput result = new ProductOutput();
+        result.setPage(page);
+        Pageable pageable =  PageRequest.of(page - 1, limit);
+        result.setListResult(productsService.filterProductscategotylv2(categoryLV2id,color, minPrice, maxPrice,pageable));
+        result.setTotalPage((int) Math.ceil((double) (productsService.totalItem()) / limit));
+        model.addAttribute("userAccountOutput", result);
+        return result;
+
     }
 }

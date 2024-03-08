@@ -24,7 +24,6 @@ public class Productsmapper {
         dto.setColorid(entity.getColorid() != null ? entity.getColorid().getColorid() : null );
         dto.setCategoryid(entity.getCategoryid() != null ? entity.getCategoryid().getCategoryid() : null);
         dto.setCategoryLV2id(entity.getCategoryLV2id() != null ? entity.getCategoryLV2id().getCategorylvid() : null);
-        dto.setLoveListid(entity.getLoveListid() != null ? entity.getLoveListid().getLovelistid() : null);
         dto.setImagesmain(entity.getImagesmain());
         dto.setImages2(entity.getImages2());
         dto.setImages3(entity.getImages3());

@@ -13,7 +13,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, String> {
     Optional<UserEntity> findByUserid(String userid);
     List<UserEntity> findByUsername(String username, Pageable pageable);
+    List<UserEntity> findByUsername(String username);
     List<UserEntity> findByEmail(String email);
+    List<UserEntity> findByStatus(Boolean status);
     List<UserEntity> findByRoleid(RoleEntity roleEntity, Pageable pageable);
     void deleteByUserid(String userid);
     UserEntity saveAndFlush(UserEntity userEntity);

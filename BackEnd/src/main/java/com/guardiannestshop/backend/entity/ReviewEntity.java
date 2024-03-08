@@ -9,7 +9,7 @@ public class ReviewEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reviewid")
     private Long reviewid;
-    @Column(name = "contents")
+    @Column(name = "contents",columnDefinition = "NVARCHAR(MAX)")
     private String contents;
     @Column(name = "evaluate")
     private Long evaluate;

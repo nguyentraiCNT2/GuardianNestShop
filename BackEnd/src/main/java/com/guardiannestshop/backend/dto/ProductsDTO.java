@@ -13,7 +13,7 @@ public class ProductsDTO {
     private Long colorid;
     private Long categoryid;
     private Long categoryLV2id;
-    private Long loveListid;
+
     private boolean productsstatus;
 
     private String imagesmain;
@@ -105,13 +105,6 @@ public class ProductsDTO {
         this.categoryLV2id = categoryLV2id;
     }
 
-    public Long getLoveListid() {
-        return loveListid;
-    }
-
-    public void setLoveListid(Long loveListid) {
-        this.loveListid = loveListid;
-    }
 
     public boolean isProductsstatus() {
         return productsstatus;

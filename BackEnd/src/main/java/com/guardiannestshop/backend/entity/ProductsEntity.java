@@ -49,10 +49,6 @@ public class ProductsEntity {
     @ManyToOne
     @JoinColumn(name = "categoryLV2id")
     private CategoryLV2Entity categoryLV2id;
-    @ManyToOne
-    @JoinColumn(name = "loveListid")
-    private LoveListEntity loveListid;
-
     public Long getProductsid() {
         return productsid;
     }
@@ -131,14 +127,6 @@ public class ProductsEntity {
 
     public void setCategoryLV2id(CategoryLV2Entity categoryLV2id) {
         this.categoryLV2id = categoryLV2id;
-    }
-
-    public LoveListEntity getLoveListid() {
-        return loveListid;
-    }
-
-    public void setLoveListid(LoveListEntity loveListid) {
-        this.loveListid = loveListid;
     }
 
     public boolean getProductsstatus() {

@@ -12,6 +12,7 @@ public interface ShoppingCartService {
     List<ShoppingCartDTO> getByproductsid(Long productsid, Pageable pageable);
     List<ShoppingCartDTO> getByUserid(String userid, Pageable pageable);
     List<ShoppingCartDTO> getByStatus( String userid,Pageable pageable);
+    void deleteCartByUserid(String userid);
     void deleteByCartid(Long cartid);
     void createShoppingCart(ShoppingCartDTO shoppingCartDTO);
 
